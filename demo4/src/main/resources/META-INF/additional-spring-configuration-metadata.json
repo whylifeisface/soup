@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "spring.datasource.password.druid.web-stat-filter.enabled",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.password.druid.web-stat-filter.enabled."
+  }
+] }

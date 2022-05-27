@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/one?serverTimezone=GMT%2B8&characterEncoding=gbk
+    username: root
+    password: root
+
+  security:
+
+
+    druid:
+      web-stat-filter:
+        enabled: true
+        url-pattern: /druid/*
+      filter:
+        wall:
+          enabled: true
+        stat:
+          enabled: true
+  redis:
+    host: 192.168.236.131
+    port: 6379
+    database: 0
+    jedis:
+      pool:
+        max-active: 8
+
+
+mybatis-plus:
+  type-aliases-package: com.example.demo.pojo
+server:
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true
