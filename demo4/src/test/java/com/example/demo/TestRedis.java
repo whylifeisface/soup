@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -10,6 +11,13 @@ import org.springframework.data.redis.core.ValueOperations;
 public class TestRedis {
     @Autowired
     StringRedisTemplate template;
+
+    @Test
+    void testSecurity(){
+
+    }
+
+
 
     @Test
     void testRsa(){

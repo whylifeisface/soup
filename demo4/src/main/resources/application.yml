@@ -6,8 +6,6 @@ spring:
     username: root
     password: root
 
-  security:
-
 
     druid:
       web-stat-filter:
@@ -25,13 +23,22 @@ spring:
     jedis:
       pool:
         max-active: 8
+  mvc:
+    view:
+      suffix: /
 
+    servlet:
+      load-on-startup: 1
 
 mybatis-plus:
   type-aliases-package: com.example.demo.pojo
+
 server:
+  port: 8080
   servlet:
     encoding:
       charset: utf-8
       force: true
       enabled: true
+    context-path: /soup
+
