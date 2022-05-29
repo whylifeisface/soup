@@ -14,4 +14,14 @@
         where  user_name =#{username}
     </select>
 
+
+    <update id="updatePhoto">
+        update user
+        <set>
+            <if test="NewName!= null">user_name = #{NewName} </if>
+            <if test="photo != null">photo = #{photo}</if>
+        </set>
+        where user_name = #{username}
+    </update>
+
 </mapper>

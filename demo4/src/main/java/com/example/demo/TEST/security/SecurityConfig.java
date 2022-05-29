@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .and()
                 .authorizeRequests()
                 .antMatchers("soup/api/login","/soup/login.html","/soup/login","/soup/1").permitAll()
-
+                .antMatchers("/soup/upload").permitAll()
                 .and().csrf().disable()
                 ;
 

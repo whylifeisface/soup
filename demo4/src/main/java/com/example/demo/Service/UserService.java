@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import com.example.demo.mapper.UserMapper;
+import com.example.demo.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,5 +11,8 @@ public class UserService {
     UserMapper userMapper;
     public String Return(String username){
        return userMapper.ReturnPassword(username);
+    }
+    public int updatePhotoService(User user){
+        return userMapper.updatePhoto(user);
     }
 }

@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.Service.BookClassificationService;
 import com.example.demo.Service.UserService;
+import com.example.demo.pojo.User;
 import com.example.demo.pojo.bookClassification;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
@@ -15,6 +16,8 @@ public class TestMybatis {
     BookClassificationService bookClassificationService;
     @Autowired
     UserService userService;
+    @Autowired
+    User user;
 
     @Test
     public void test01(){
@@ -26,5 +29,14 @@ public class TestMybatis {
     public void sa(){
         String aReturn = userService.Return("zhangsan");
         System.out.println(aReturn);
+    }
+    @Test
+    public void as(){
+
+        this.user.setUsername("z");
+        this.user.setNewName("a");
+        System.out.println(user.getNewName());
+        int s = userService.updatePhotoService(user);
+        System.out.println(s);
     }
 }
