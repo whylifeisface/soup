@@ -13,6 +13,6 @@ public class User {
     private String username;
     private String password;
     private int id;
-    private MultipartFile[] file;
-    private String filepath;
+    private MultipartFile[] photo;
+    private String PhotoPath;
 }

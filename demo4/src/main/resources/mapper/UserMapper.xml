@@ -8,18 +8,18 @@
         <result column="user_name" property="username"/>
         <result column="password" property="password"/>
     </resultMap>
-    <select id="ReturnPassword" resultMap="returnUsr">
-        select password
+    <select id="ReturnPassword" resultType="User">
+        select password,user_name
         from user
-        where  user_name =#{username}
+        where  user_name = #{username}
     </select>
 
 
     <update id="updatePhoto">
         update user
         <set>
-            <if test="NewName!= null">user_name = #{NewName} </if>
-            <if test="photo != null">photo = #{photo}</if>
+            <if test="NewName!= null">user_name = #{NewName}, </if>
+            <if test="photo != null">photo_path = #{PhotoPath}</if>
         </set>
         where user_name = #{username}
     </update>

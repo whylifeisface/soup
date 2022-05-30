@@ -1,22 +1,19 @@
 package com.example.demo.Web;
 
 import com.example.demo.Service.UserService;
+import com.example.demo.TEST.security.UserServiceImp;
 import com.example.demo.pojo.User;
-import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
 @Controller
-
-@RequestMapping("/soup")
 public class UserWeb {
     @Autowired
     UserService userService;
@@ -29,40 +26,45 @@ public class UserWeb {
     }
 
     @PostMapping("/upload")
-    public String Uploader(User user) throws IOException {
-        for(MultipartFile ff:user.getFile()){
+    public String Uploader(@RequestPart MultipartFile[] file,
+                           @RequestParam String username
+                           ) throws IOException {
+
+        if(null==username && null==file){
+            return "failure";
+        }
+        for(MultipartFile ff:file){
             String filename = ff.getOriginalFilename();
             if (filename != null){
-//                ((CommonsMultipartFile)ff).getFileItem().getName().replaceAll("“","").replaceAll("”","");
-                byte[] bytes = filename.getBytes();
                 ff.transferTo(new File("F:\\java\\download" + filename) );
-                user.setUsername("15");
-                user.setFilepath(filename);
+                user.setPhotoPath(filename);
             }
-            userService.updatePhotoService(user);
-
-            return "success";
-
         }
-        return "failure";
+        user.setUsername("152");
+        user.setNewName(username);
+        userService.updatePhotoService(user);
+
+        return "success";
     }
 
 
 
 //    视图解析器
     @GetMapping("/login")
-    public String LoginPage( Model model){
+    public String LoginPage(){
+
         return "login";
     }
+
+
     @PostMapping("/api/login")
-    public String login(String username,String password){
+    public String login(String username,
+       HttpServletRequest req,
+       HttpServletResponse res
+                        ) {
 
-        String pass = userService.Return(username);
-        if (!Objects.equals(pass, password)){
+        return "success";
 
-            return "redirect:login";
-        }
-        return "forward:success";
     }
 
 }

@@ -27,7 +27,7 @@ public class TestMybatis {
     }
     @Test
     public void sa(){
-        String aReturn = userService.Return("zhangsan");
+        User aReturn = userService.Return("zhangsan");
         System.out.println(aReturn);
     }
     @Test
@@ -35,8 +35,11 @@ public class TestMybatis {
 
         this.user.setUsername("z");
         this.user.setNewName("a");
+
         System.out.println(user.getNewName());
         int s = userService.updatePhotoService(user);
+        this.user.setUsername("");
+        this.user.setNewName("");
         System.out.println(s);
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
     @Autowired
     UserMapper userMapper;
-    public String Return(String username){
+    public User Return(String username){
        return userMapper.ReturnPassword(username);
     }
     public int updatePhotoService(User user){
