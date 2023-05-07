@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/soup?serverTimezone=GMT%2B8characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: root
+  servlet:
+    multipart:
+      enabled: true
+mybatis-plus:
+  type-aliases-package: com.example.project1.pojo
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*/

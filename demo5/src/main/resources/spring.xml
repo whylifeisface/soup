@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <context:component-scan base-package="com.controller"/>
+
+<bean id="viewResolver" class="org.thymeleaf.spring5.view.Thymeleaf">
+    <property name="characterEncoding" value="UTF-8"/>
+    <property name="order" value="1"/>
+    <property name="templateEngine" >
+        <bean class="org.thymeleaf.spring5.SpringTemplateEngine">
+            <property class="templateResolver">
+                <bean class="org.thymeleaf.spring5.templateresolver.springResourceTemplate">
+
+                    <property name="prefix" value="/WEB-INF.template"/>
+
+                    <property name="suffix" value=".html"/>
+
+                    <property name="templateMode" value="HTML"/>
+
+                    <property name="characterEncoding" value="UTF-8"/>
+                </bean>
+            </property>
+
+        </bean>
+
+    </property>
+</bean>
+</beans>

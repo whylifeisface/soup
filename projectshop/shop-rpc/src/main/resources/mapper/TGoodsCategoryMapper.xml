@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.TGoodsCategoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.shoprpc.pojo.TGoodsCategory">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="mobile_name" property="mobileName" />
+        <result column="parent_id" property="parentId" />
+        <result column="parent_id_path" property="parentIdPath" />
+        <result column="level" property="level" />
+        <result column="sort_order" property="sortOrder" />
+        <result column="is_show" property="isShow" />
+        <result column="image" property="image" />
+        <result column="is_hot" property="isHot" />
+        <result column="cat_group" property="catGroup" />
+        <result column="commission_rate" property="commissionRate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, mobile_name, parent_id, parent_id_path, level, sort_order, is_show, image, is_hot, cat_group, commission_rate
+    </sql>
+    <select id="CateMapp" resultType="com.example.shoprpc.pojo.TGoodsCategory">
+        select mobile_name from t_goods_category
+    </select>
+    <select id="selectNameMobile" resultType="com.example.shoprpc.pojo.TGoodsCategory">
+        SELECT mobile_name,name from t_goods_category
+    </select>
+
+
+</mapper>

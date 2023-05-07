@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>商品名称</td>
+        <td>商品图片</td>
+        <td>商品原价</td>
+        <td>秒杀价</td>
+        <td>库存数量</td>
+        <td>详情</td>
+        <td>抢购</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+<script type="text/javascript" src="1.js"></script>
+
+<script>
+    window.onload = function (){
+        window.data = this;
+        $.ajax({
+            url: "" ,
+            type: "get",
+            success: function (data) {
+            if (data.code === "200"){
+            data.data
+                console.log(data.data)
+            }
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

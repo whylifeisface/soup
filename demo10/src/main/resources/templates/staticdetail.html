@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>商品名: <span class="good-name"></span> </h1>
+<h4>商品原格<span class="good-price"></span></h4>
+<h4>商品库存<span class="good-stock"></span></h4>
+<h4>秒杀价<span class="seckill-price"></span></h4>
+<h4>倒计时<span class="time"></span></h4>
+<h4>售卖状态<span class="ht-state"></span></h4>
+
+</body>
+<script type="text/javascript" src="../static/image/1.js"></script>
+<script>
+    window.location.url = url
+
+
+    let id =
+         window.onload = function(id){
+             let count;
+             let price;
+             let name;
+             let start;
+             let end;
+             let secprice;
+             let statejs;
+        $.ajax({
+            url: `http://localhost:8080/static/detail?id=${id}`,
+            type: "get",
+            success:function (data){
+
+                data.goodName = name
+
+                data.goodPrice = price
+
+                data.sockCount = count
+
+                data.startDate = start
+
+                data.endTime = end
+
+                data.seckillPrice = secprice
+
+                data.state = statejs
+            }
+        })
+             $('.end').text(end)
+             $('.good-name').text(name)
+             $('.good-price').text(price)
+             $('.sec').text(secprice)
+             $('.timeBegin').text(start)
+             if (statejs === 0){
+                 $('.ht-state').text("未开始")
+             }
+             if (statejs === 1){
+                 $('.ht-state').text("进行中")
+             }
+             if (statejs === 2){
+                 $('.ht-state').text("已结束")
+             }
+         }
+    let now = new Date().getTime();
+    let begin = new Date(start).getTime();
+
+    function ian(now){
+        return now-1
+    }
+    ian(ian(now))
+    //接受到开始时间格式为小时分钟秒的
+    let timeInter =setInterval(
+        "TimeFromfat(now)"//会是闭包吗
+        ,1000)
+
+    function  TimeFromfat(now){
+        now = now -1
+        let Result = (begin - now)/1000;
+        if (begin === now){
+            clearInterval(timeInter)
+            return "00:00:00"
+        }
+        Muidem = Result/60
+        let min = Muidem  % 60;
+        let sec = Result%60
+        let hour = Muidem/60%24
+        return `${hour}:${min}:${sec}`
+    }
+</script>
+
+</html>

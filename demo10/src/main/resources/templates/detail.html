@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>商品名称</td>
+        <td>商品标题</td>
+        <td>商品图片</td>
+        <td>商品细节</td>
+        <td>商品原价</td>
+        <td>秒杀价</td>
+        <td>秒杀库存</td>
+        <td>秒杀开始时间</td>
+        <td>秒杀结束时间</td>
+    </tr>
+
+    <!--/*@thymesVar id="tGoods" type="com.example.demo.model.TGoods"*/-->
+    <tr th:each ="tgood:${tGoods}">
+        <td th:text="${tgood.goodsName}"></td>
+        <td th:text="${tgood.goodsTitle}"></td>
+        <td> <img th:src="@{${tgood.goodImg}}"></td>
+        <td th:text="${tgood.goodsDetial}"></td>
+        <td th:text="${tgood.goodsPrice}"></td>
+        <td th:text="${tgood.seckillPrice}"></td>
+        <td th:text="${tgood.SockCount}"></td>
+        <td th:text="${#dates.format(tgood.startDate,'yyyy-MM-dd HH:mm:ss')}" id="start"></td>
+        <td th:text="${#dates.format(tgood.endTime,'yyyy-MM-dd HH:mm:ss')}" class="end"></td>
+
+
+    </tr>
+    <span th:if="${tGoods.state eq 0}" th:id="Thif">秒杀未开始</span>
+    <span th:if="${tGoods.state eq 1}" th:id="Thif">秒杀进行中</span>
+    <span th:if="${tGoods.state eq 2}" th:id="Thif">已结束</span>
+    <h4 class="sec">秒杀倒计时<span id="timeBegin"></span></h4>
+    <button id="sec" onclick="doSec" style="width: 50px;height: 50px">点击秒杀</button>
+
+</table>
+
+
+</body>
+<!-- 404待解决 好像好了-->
+<script th:src="@{https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js}"></script>
+<script>
+
+    let Message;
+    //作用 从2020-11-01 08:08:00取出 08:08:00目前没用到
+    let start = document.getElementById('start').innerText;
+    function reg(start) {
+        parttern = /\s(.*)/;
+        // str = "2020-11-01 08:08:00";
+        return  start.match(parttern)[0]
+    }
+
+    let elementById = document.getElementById('timeBegin');
+    let el = document.getElementsByClassName('end')[0].innerText;
+    // console.log(reg(start))
+    let now = new Date().getTime();
+    let begin = new Date(start).getTime();
+    let end = new Date(el).getTime()
+    i = 1;
+    //接受到开始时间格式为小时分钟秒的
+    let timeInter =setInterval(
+        "TimeFromfat(now)"//会是闭包吗
+        ,1000)
+
+    function  TimeFromfat(now){
+
+        now = parseInt(now/1000 + i)
+        let Result = parseInt((begin/1000 - now));
+        // console.log(now)
+        // console.log(begin/1000)
+        // console.log(end/1000)
+
+        // console.log(begin/1000 < now)
+
+
+        Muidem = Result/60
+        let min = parseInt(Muidem % 60)
+        let sec = parseInt(Result % 60)
+        let hour = parseInt(Muidem/60%24)
+        i++
+        // console.log(now > end/1000)
+        elementById.innerText = `${hour}:${min}:${sec}`
+        if (now > end/1000){
+            elementById.innerText = '00:00:00'
+        }
+        if (begin/1000 === now || (begin/1000 < now && now< end/1000)){
+            state = 1;
+            document.getElementById('Thif').innerText = '秒杀进行中';
+            elementById.innerText =  '00:00:00'
+            clearInterval(timeInter)
+        }
+    }
+
+
+    console.log([[${tGoods.state}]])
+    let state = [[${tGoods.state}]]
+    if (state === 0){
+        document.getElementById()
+    }
+
+//tSeckillOrder
+
+    function doSec(){
+        //商品的id
+        let tSeckillOrder = {};
+        // tSeckillOrder.
+        let url = window.location.pathname
+        // console.log(url)
+        let urlId = url.split('/')[2]
+        // console.log(goodsid)
+        tSeckillOrder.GoodsId = urlId;
+        console.log(tSeckillOrder)
+        $.ajax({
+            url: 'http://localhost:8080/sec/good',
+            type:'post',
+            data: tSeckillOrder,
+            success:function (data){
+                if (data.code === 200){
+                    Message = "支付成功"
+                }
+            }
+        })
+    }
+    document.getElementById("sec").addEventListener("click",doSec)
+</script>
+
+</html>

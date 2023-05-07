@@ -1,0 +1,31 @@
+spring:
+  thymeleaf:
+    cache: false
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+
+    url: jdbc:mysql://127.0.0.1:3306/project2?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+
+  redis:
+    host: 192.168.236.131
+  mvc:
+    view:
+      suffix: /
+    servlet:
+      load-on-startup: 1
+  web:
+    resources:
+      add-mappings: false
+#      static-locations: classpath:/templates/,classpath:/static/image/
+mybatis-plus:
+  type-aliases-package: com.example.demo.model
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    call-setters-on-nulls: true
+debug: true

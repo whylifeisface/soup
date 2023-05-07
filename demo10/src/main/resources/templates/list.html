@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table id="goodslist">
+  <tr>
+    <td>商品名称</td>
+    <td>商品图片</td>
+    <td>商品原价</td>
+    <td>秒杀价</td>
+    <td>库存数量</td>
+    <td>详情</td>
+    <td>抢购</td>
+  </tr>
+
+  <tr th:each="good : ${goodList}">
+    <td th:text="${good.goodsName}"></td>
+    <td> <img th:src="@{${good.goodImg}}">
+    </td>
+    <td th:text="${good.goodsPrice}"></td>
+    <td th:text="${good.seckillPrice}"></td>
+    <td th:text="${good.goodsStock}"></td>
+    <td th:text="${good.goodsDetial}"></td>
+    <td>
+      <a th:href="'/goodDetail/'+${good.id}">详情</a>
+    </td>
+<!--    <td >${good.goodsPrice}</td>-->
+    
+  </tr>
+</table>
+
+</body>
+<script th:src="@{https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js}"></script>
+
+<script>
+
+
+</script>
+</html>

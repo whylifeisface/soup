@@ -15,4 +15,6 @@ public class User {
     private int id;
     private MultipartFile[] photo;
     private String PhotoPath;
+    private String token;
+
 }

@@ -7,6 +7,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
@@ -36,11 +40,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 .antMatchers("/api/login","/login.html","/login","/1").permitAll()
                 .antMatchers("/upload").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and().rememberMe().tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(60)
+                .userDetailsService(userServiceImp);
+
         http.csrf().disable();
+        http.logout().logoutUrl("/logout").logoutSuccessUrl("/success").permitAll();
 
     }
 
+    @Autowired
+    DataSource dataSource;
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository(){
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource);
+        return jdbcTokenRepository;
+    }
     @Bean
     public BCryptPasswordEncoder pw(){
 

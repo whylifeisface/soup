@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pixiv.entity.mapper.PixMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.pixiv.entity.PixEntity">
+            <id property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="VARCHAR"/>
+            <result property="imageUrls" column="image_urls" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        name,title,type,
+        image_urls
+    </sql>
+    <select id="getAll" resultType="com.example.pixiv.entity.PixEntity">
+        SELECT <include refid="Base_Column_List"/>
+        from pix
+    </select>
+</mapper>

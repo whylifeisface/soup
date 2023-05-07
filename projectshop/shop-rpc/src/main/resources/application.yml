@@ -1,0 +1,36 @@
+server:
+  port: 9092
+  servlet:
+    context-path: /shop-rpc
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shop?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 1
+      max-active: 20
+      max-idle: 20
+      max-wait: 6000
+    username: root
+  redis:
+    host: 192.168.236.13
+    timeout: 1000ms
+    lettuce:
+      pool:
+        max-active: 1024
+        max-wait: 1000ms
+        max-idle: 200
+        min-idle: 5
+dubbo:
+  application:
+    name: rpc-provider
+  registry:
+    address: zookeeper://192.168.236.131?
+  protocol:
+      name: dubbo
+      port: 20880
+  scan:
+    base-packages: com.example.server
+goods.category.list.key: goods:category:list:goodsCateoryList

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.TGoodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.entity.TGoods">
+        <id column="goods_id" property="goodsId" />
+        <result column="cat_id" property="catId" />
+        <result column="extend_cat_id" property="extendCatId" />
+        <result column="goods_sn" property="goodsSn" />
+        <result column="goods_name" property="goodsName" />
+        <result column="click_count" property="clickCount" />
+        <result column="brand_id" property="brandId" />
+        <result column="store_count" property="storeCount" />
+        <result column="comment_count" property="commentCount" />
+        <result column="weight" property="weight" />
+        <result column="market_price" property="marketPrice" />
+        <result column="shop_price" property="shopPrice" />
+        <result column="cost_price" property="costPrice" />
+        <result column="keywords" property="keywords" />
+        <result column="goods_remark" property="goodsRemark" />
+        <result column="goods_content" property="goodsContent" />
+        <result column="original_img" property="originalImg" />
+        <result column="is_real" property="isReal" />
+        <result column="is_on_sale" property="isOnSale" />
+        <result column="is_free_shipping" property="isFreeShipping" />
+        <result column="on_time" property="onTime" />
+        <result column="sort" property="sort" />
+        <result column="is_recommend" property="isRecommend" />
+        <result column="is_new" property="isNew" />
+        <result column="is_hot" property="isHot" />
+        <result column="last_update" property="lastUpdate" />
+        <result column="goods_type" property="goodsType" />
+        <result column="spec_type" property="specType" />
+        <result column="give_integral" property="giveIntegral" />
+        <result column="exchange_integral" property="exchangeIntegral" />
+        <result column="suppliers_id" property="suppliersId" />
+        <result column="sales_sum" property="salesSum" />
+        <result column="prom_type" property="promType" />
+        <result column="prom_id" property="promId" />
+        <result column="commission" property="commission" />
+        <result column="spu" property="spu" />
+        <result column="sku" property="sku" />
+    </resultMap>
+
+    <resultMap id="selectTwice" type="com.example.entity.TGoods" extends="BaseResultMap">
+        <association property="tGoodsCategory" javaType="com.example.entity.TGoodsCategory">
+            <result column="mobile_name" property="mobileName"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="XmlSort" type="com.example.entity.TGoods">
+        <association property="tGoodsCategory" javaType="com.example.entity.TGoodsCategory">
+            <result column="mobile_name" property="mobileName"/>
+        </association>
+        <association property="tBrand" javaType="com.example.entity.TBrand">
+            <result column="name" property="name"/>
+        </association>
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        goods_id, cat_id, extend_cat_id, goods_sn, goods_name, click_count, brand_id, store_count, comment_count, weight, market_price, shop_price, cost_price, keywords, goods_remark, goods_content, original_img, is_real, is_on_sale, is_free_shipping, on_time, sort, is_recommend, is_new, is_hot, last_update, goods_type, spec_type, give_integral, exchange_integral, suppliers_id, sales_sum, prom_type, prom_id, commission, spu, sku
+    </sql>
+
+    <select id="select" resultMap="selectTwice">
+        SELECT tg.brand_id,tg.cat_id,tg.click_count,
+               tg.comment_count,tg.commission,tg.cost_price,tg.exchange_integral,
+               tgc.mobile_name,tg.extend_cat_id,tg.give_integral,tg.goods_content,
+               tg.weight,tg.suppliers_id,tg.store_count,tg.spu,tg.spec_type,tg.sort,
+               tg.sku,tg.shop_price,tg.sales_sum,tg.prom_type,tg.original_img,tg.on_time,
+               tg.market_price,tg.last_update,tg.keywords,tg.is_recommend,tg.is_real,
+               tg.is_on_sale,tg.is_new,tg.is_hot,tg.is_free_shipping,tg.goods_type,
+               tg.goods_sn,tg.goods_remark,tg.goods_name,tg.goods_id FROM t_goods as tg
+                   JOIN t_goods_category as tgc ON tg.cat_id=tgc.id
+
+
+
+    </select>
+    <select id="selectSort" resultMap="XmlSort">
+        SELECT tg.brand_id,tg.cat_id,tg.click_count,
+        tg.comment_count,tg.commission,tg.cost_price,tg.exchange_integral,
+        tgc.mobile_name,tg.extend_cat_id,tg.give_integral,tg.goods_content,
+        tg.weight,tg.suppliers_id,tg.store_count,tg.spu,tg.spec_type,tg.sort,
+        tg.sku,tg.shop_price,tg.sales_sum,tg.prom_type,tg.original_img,tg.on_time,
+        tg.market_price,tg.last_update,tg.keywords,tg.is_recommend,tg.is_real,
+        tg.is_on_sale,tg.is_new,tg.is_hot,tg.is_free_shipping,tg.goods_type,
+        tb.`name`,
+        tg.goods_sn,tg.goods_remark,tg.goods_name,tg.goods_id FROM t_goods as tg
+        JOIN t_goods_category as tgc ON tg.cat_id=tgc.id JOIN t_brand as tb on tb.id = tg.brand_id
+            <where>
+                <if test="tGoodsCategory != null">
+                    tgc.mobile_name = #{tGoodsCategory.mobileName}
+                </if>
+                <if test="tBrand != null">
+                    tb.name = #{ tBrand.name }
+                </if>
+                <if test="keywords != null">
+                    tg.keywords = #{keywords}
+                </if>
+            </where>
+
+
+    </select>
+    <select id="KeySort" resultType="com.example.entity.TGoods">
+        select keywords form t_goods where keywords = #{tGoods.keywords}
+    </select>
+
+
+</mapper>
